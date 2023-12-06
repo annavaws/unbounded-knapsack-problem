@@ -15,4 +15,3 @@ class DP:
                 if (wt[j] <= i):
                     dp[i] = max(dp[i], dp[i - wt[j]] + val[j])
         return dp[W]
-

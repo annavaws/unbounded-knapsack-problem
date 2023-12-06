@@ -23,6 +23,7 @@ for file_name in file_list:
 
         W = int(0.1 * sum(wt))
 
+
         start_time_bnb = time.time()
         start_memory_bnb = memory_usage()[0]
         bnb = BnB(W, wt, val)

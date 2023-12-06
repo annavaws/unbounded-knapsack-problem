@@ -47,8 +47,10 @@ class BnB:
         self.x[0] = math.floor(self.W/w1)
         self.vn = v1*self.x[0]
         self.W_aksen = self.W - self.x[0] * w1
-
+        # print("vn",self.vn)
+        # print(self.W_aksen)
         self.U = self.upperbound()
+        # print(self.U)
         self.m = []
         for i in range(len(self.N)):
             min_value = float('inf')
@@ -56,7 +58,9 @@ class BnB:
                 if self.w[j] < min_value:
                     min_value = self.w[j]
             self.m.append(min_value)
-
+        # print(self.m)
+        # print(self.x)
+        # print(self.x_topi)
         self.develop()
 
     def upperbound(self):
@@ -95,8 +99,7 @@ class BnB:
                     print(self.result)
                     return self.z_topi, self.x_topi
                 
-            # print("2. Develop Go to Step 3 Backtrack, ", self.x, self.i,
-                #   self.vn, self.W_aksen, self.z_topi, self.x_topi)
+            # print("2. Develop Go to Step 3 Backtrack, ", self.x, self.i, self.vn, self.W_aksen, self.z_topi, self.x_topi)
             self.backtrack()
 
         else:
@@ -144,20 +147,18 @@ class BnB:
         self.W_aksen += self.w[self.i]
 
         if self.W_aksen < self.m[self.i]:
-            # print("2. Backtrack, ", self.x, self.i, self.vn,
-            #   self.W_aksen, self.z_topi, self.x_topi)
+            # print("2. Backtrack, ", self.x, self.i, self.vn, self.W_aksen, self.z_topi, self.x_topi)
             self.backtrack()
             
         if self.vn + math.floor(self.W_aksen * self.v[self.i+1] / self.w[self.i+1]) <= self.z_topi:
             self.vn -= self.v[self.i] * self.x[self.i]
             self.W_aksen += self.w[self.i] * self.x[self.i]
             self.x[self.i] = 0
-            # print("3. Backtrack, ", self.x, self.i, self.vn,
-            #   self.W_aksen, self.z_topi, self.x_topi)
+            # print("3. Backtrack, ", self.x, self.i, self.vn, self.W_aksen, self.z_topi, self.x_topi)
             self.backtrack()
             
         if self.W_aksen >= self.m[self.i] and self.result is None:
-            # print("4. Backtrack Go To Develop")
+            # print("4. Backtrack Go To Develop", self.x, self.i, self.vn, self.W_aksen, self.z_topi, self.x_topi)
             self.develop()
             
         self.replace(self.i, self.i+1)
@@ -202,4 +203,5 @@ class BnB:
             
             # print("4. Replace back to develop")
             self.develop()
+
 
